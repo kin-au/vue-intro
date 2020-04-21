@@ -24,6 +24,7 @@
         <div class="product-description">
           <h3>Product description:</h3>
           <ul>
+            <!-- "v-for" is for displaying an array of elements -->
             <!-- the "details" alias refers to the array of data -->
             <!-- "detail" refers to each element in details and must match the expression in moustaches -->
             <!-- note it's highly recommended to have a unique "v-bind:key" for each element -->
@@ -31,9 +32,17 @@
           </ul>
           <p>Available in:</p>
           <ul>
-            <li v-for="variant in variants" :key="variant.id">
+            <!-- example of v-for with :key, using a "p" tag -->
+            <!-- v-on creates an event listener -->
+            <p
+              v-on:mouseover="updateImage(variant.image)"
+              v-on:mouseout="defaultImage()"
+              class="variants"
+              v-for="variant in variants"
+              :key="variant.id"
+            >
               {{ variant.name }}
-            </li>
+            </p>
           </ul>
           <a target="_blank" :href="link">Click here for more details</a>
         </div>
@@ -54,6 +63,14 @@
           <!-- the else condition seems to work because of nesting (if I move it outside of the parent div, it no longer renders at all) -->
           <p v-else="inventory">Out of stock</p>
         </div>
+      </div>
+      <div class="shopping">
+        <!-- shorthand version of "v-on:" is "@" -->
+        <button @click="addToBasket()" class="addBasket">Add to Basket</button>
+        <button @click="removeFromBasket()" class="removeBasket">
+          Remove from Basket
+        </button>
+        <p class="basket">Basket ({{ basket }})</p>
       </div>
       <footer>
         <p>Made with Vue.js</p>

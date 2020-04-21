@@ -2,9 +2,35 @@ header {
   text-transform: uppercase;
 }
 
+.product-image {
+  height: 300px;
+}
+
 .product-image-tag {
-  width: 25%;
-  height: auto;
+  height: 100%;
+}
+
+button {
+  width: 10rem;
+  height: 2rem;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+
+.addBasket {
+  background-color: green;
+}
+
+.removeBasket {
+  background-color: gray;
+}
+
+.basket {
+  width: 10rem;
+  border: solid black 1px;
+  text-align: center;
+  border-radius: 5px;
 }
 
 footer {
