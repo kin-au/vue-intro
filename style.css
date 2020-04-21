@@ -1,0 +1,12 @@
+header {
+  text-transform: uppercase;
+}
+
+.product-image-tag {
+  width: 25%;
+  height: auto;
+}
+
+footer {
+  color: gray;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue.js introduction project</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Air Shop</h1>
+      </header>
+      <div class="product">
+        <div class="product-title">
+          <!-- inside the curly braces is an expression to display app's data -->
+          <h2>{{ product }}</h2>
+        </div>
+        <div class="product-image">
+          <!-- the v-bind directive dynamically connects the html attribute with the expression in "quotes", therefore with the instance's data -->
+          <!-- the alias/shorthand is to remove "v-bind" entirely and just have ":src=" -->
+          <img class="product-image-tag" v-bind:src="image" />
+        </div>
+        <div class="product-description">
+          <h3>Product description:</h3>
+          <ul>
+            <!-- the "details" alias refers to the array of data -->
+            <!-- "detail" refers to each element in details and must match the expression in moustaches -->
+            <!-- note it's highly recommended to have a unique "v-bind:key" for each element -->
+            <li v-for="detail in details">{{ detail }}</li>
+          </ul>
+          <p>Available in:</p>
+          <ul>
+            <li v-for="variant in variants" :key="variant.id">
+              {{ variant.name }}
+            </li>
+          </ul>
+          <a target="_blank" :href="link">Click here for more details</a>
+        </div>
+        <div class="product-price">
+          <p>£{{ price }}</p>
+          <!-- using v-show to conditionally show element -->
+          <!-- if false, vue gives the element "display:none" css property -->
+          <!-- more performant than adding/removing element from the DOM entirely -->
+          <p v-show="onSale">ClAirance sale!</p>
+        </div>
+        <div class="product-stock">
+          <!-- using v-if/else-if/else for conditional rendering of elements -->
+          <p v-if="inventory > 10">In stock</p>
+          <p v-else-if="inventory <= 10 && inventory > 0">
+            Only {{inventory}} airs remaining
+          </p>
+          <!-- could also remove "inventory" from the v-else and it will still work -->
+          <!-- the else condition seems to work because of nesting (if I move it outside of the parent div, it no longer renders at all) -->
+          <p v-else="inventory">Out of stock</p>
+        </div>
+      </div>
+      <footer>
+        <p>Made with Vue.js</p>
+      </footer>
+    </div>
+    <!-- install vue with this script tag -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
