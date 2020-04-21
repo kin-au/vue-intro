@@ -1,1 +1,1 @@
-# vue-intro
+# Vue.js - Introduction project
