@@ -8,9 +8,27 @@ let app = new Vue({
     image: "./assets/wales.jpg",
     details: ["Crisp", "Westerly", "Earthy", "Hint of baa"],
     variants: [
-      { id: 1, name: "Plastic bottle", image: "./assets/bottle.jpg" },
-      { id: 2, name: "Balloon", image: "./assets/balloon.jpg" },
-      { id: 3, name: "Envelope", image: "./assets/envelope.jpg" },
+      {
+        id: 0,
+        name: "Plastic bottle",
+        image: "./assets/bottle.jpg",
+        color: "red",
+        isVariantSelected: false,
+      },
+      {
+        id: 1,
+        name: "Balloon",
+        image: "./assets/balloon.jpg",
+        color: "blue",
+        isVariantSelected: false,
+      },
+      {
+        id: 2,
+        name: "Envelope",
+        image: "./assets/envelope.jpg",
+        color: "green",
+        isVariantSelected: false,
+      },
     ],
     link: "https://www.google.com/search?q=welsh+hills",
     inventory: 5,
@@ -26,12 +44,20 @@ let app = new Vue({
     defaultImage() {
       this.image = "./assets/wales.jpg";
     },
+    selectVariant(variantId) {
+      this.variants.map((variant) => {
+        variant.isVariantSelected = false;
+      });
+      this.variants[variantId].isVariantSelected = true;
+    },
     addToBasket() {
       this.basket += 1;
+      this.inventory -= 1;
     },
     removeFromBasket() {
       if (this.basket > 0) {
         this.basket -= 1;
+        this.inventory += 1;
       }
     },
   },

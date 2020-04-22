@@ -1,3 +1,7 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
 header {
   text-transform: uppercase;
 }
@@ -10,6 +14,35 @@ header {
   height: 100%;
 }
 
+.variants-container {
+  display: flex;
+}
+
+.variant {
+  width: 70px;
+  border-radius: 5px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.variant:hover {
+  box-shadow: 2px 2px lightgray;
+}
+
+.variants-image {
+  max-height: 50px;
+  max-width: 50px;
+  border: solid black 1px;
+}
+
+figcaption {
+  text-align: center;
+}
+
+.variantSelected {
+  background-color: orange;
+}
+
 button {
   width: 10rem;
   height: 2rem;
@@ -20,6 +53,10 @@ button {
 
 .addBasket {
   background-color: green;
+}
+
+.disabledButton {
+  background-color: lightgray;
 }
 
 .removeBasket {

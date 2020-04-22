@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vue.js introduction project</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="app">
@@ -31,19 +35,36 @@
             <li v-for="detail in details">{{ detail }}</li>
           </ul>
           <p>Available in:</p>
-          <ul>
-            <!-- example of v-for with :key, using a "p" tag -->
+          <div class="variants-container">
+            <!-- example of v-for with :key, using img tag -->
             <!-- v-on creates an event listener -->
-            <p
+            <!-- bind class of variantSelected to boolean value in data (isVariantSelected) -->
+            <!-- can bind more than one class using a class object (declare obj in data), or an array of classes -->
+            <!-- can also bind class conditionally using a ternary operator -->
+            <figure
+              class="variant"
+              v-for="variant in variants"
               v-on:mouseover="updateImage(variant.image)"
               v-on:mouseout="defaultImage()"
-              class="variants"
-              v-for="variant in variants"
-              :key="variant.id"
+              v-on:click="selectVariant(variant.id)"
+              :class="{ variantSelected: variant.isVariantSelected }"
             >
-              {{ variant.name }}
-            </p>
-          </ul>
+              <!-- :class="{ disabledButton: !inventory }" -->
+              <!-- using :style= to change the border color (stored in data obj) -->
+              <!-- note need to put style properties as object { } -->
+              <img
+                class="variants-image"
+                :src="variant.image"
+                :alt="variant.name"
+                :key="variant.id"
+                :style="{ 'border': 'solid ' + variant.color + ' 2px'}"
+              />
+              <figcaption>
+                {{ variant.name }}
+              </figcaption>
+            </figure>
+          </div>
+
           <a target="_blank" :href="link">Click here for more details</a>
         </div>
         <div class="product-price">
@@ -66,7 +87,17 @@
       </div>
       <div class="shopping">
         <!-- shorthand version of "v-on:" is "@" -->
-        <button @click="addToBasket()" class="addBasket">Add to Basket</button>
+        <!-- can bind the disabled attribute to the inventory data with :disabled="" -->
+        <!-- bind the disabledButton class with inventory data -->
+        <!-- alternative is to just use button:disabled pseudo-class in css -->
+        <button
+          @click="addToBasket()"
+          class="addBasket"
+          :class="{ disabledButton: !inventory }"
+          :disabled="!inventory"
+        >
+          Add to Basket
+        </button>
         <button @click="removeFromBasket()" class="removeBasket">
           Remove from Basket
         </button>
