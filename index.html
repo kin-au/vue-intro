@@ -11,98 +11,21 @@
     />
   </head>
   <body>
+    <!-- app div is linked to the instance -->
     <div id="app">
       <header>
         <h1>Air Shop</h1>
       </header>
-      <div class="product">
-        <div class="product-title">
-          <!-- inside the curly braces is an expression to display app's data -->
-          <h2>{{ product }}</h2>
-        </div>
-        <div class="product-image">
-          <!-- the v-bind directive dynamically connects the html attribute with the expression in "quotes", therefore with the instance's data -->
-          <!-- the alias/shorthand is to remove "v-bind" entirely and just have ":src=" -->
-          <img class="product-image-tag" v-bind:src="image" />
-        </div>
-        <div class="product-description">
-          <h3>Product description:</h3>
-          <ul>
-            <!-- "v-for" is for displaying an array of elements -->
-            <!-- the "details" alias refers to the array of data -->
-            <!-- "detail" refers to each element in details and must match the expression in moustaches -->
-            <!-- note it's highly recommended to have a unique "v-bind:key" for each element -->
-            <li v-for="detail in details">{{ detail }}</li>
-          </ul>
-          <p>Available in:</p>
-          <div class="variants-container">
-            <!-- example of v-for with :key, using img tag -->
-            <!-- v-on creates an event listener -->
-            <!-- bind class of variantSelected to boolean value in data (isVariantSelected) -->
-            <!-- can bind more than one class using a class object (declare obj in data), or an array of classes -->
-            <!-- can also bind class conditionally using a ternary operator -->
-            <figure
-              class="variant"
-              v-for="variant in variants"
-              v-on:mouseover="updateImage(variant.image)"
-              v-on:mouseout="defaultImage()"
-              v-on:click="selectVariant(variant.id)"
-              :class="{ variantSelected: variant.isVariantSelected }"
-            >
-              <!-- :class="{ disabledButton: !inventory }" -->
-              <!-- using :style= to change the border color (stored in data obj) -->
-              <!-- note need to put style properties as object { } -->
-              <img
-                class="variants-image"
-                :src="variant.image"
-                :alt="variant.name"
-                :key="variant.id"
-                :style="{ 'border': 'solid ' + variant.color + ' 2px'}"
-              />
-              <figcaption>
-                {{ variant.name }}
-              </figcaption>
-            </figure>
-          </div>
-
-          <a target="_blank" :href="link">Click here for more details</a>
-        </div>
-        <div class="product-price">
-          <p>£{{ price }}</p>
-          <!-- using v-show to conditionally show element -->
-          <!-- if false, vue gives the element "display:none" css property -->
-          <!-- more performant than adding/removing element from the DOM entirely -->
-          <p v-show="onSale">ClAirance sale!</p>
-        </div>
-        <div class="product-stock">
-          <!-- using v-if/else-if/else for conditional rendering of elements -->
-          <p v-if="inventory > 10">In stock</p>
-          <p v-else-if="inventory <= 10 && inventory > 0">
-            Only {{inventory}} airs remaining
-          </p>
-          <!-- could also remove "inventory" from the v-else and it will still work -->
-          <!-- the else condition seems to work because of nesting (if I move it outside of the parent div, it no longer renders at all) -->
-          <p v-else="inventory">Out of stock</p>
-        </div>
-      </div>
-      <div class="shopping">
-        <!-- shorthand version of "v-on:" is "@" -->
-        <!-- can bind the disabled attribute to the inventory data with :disabled="" -->
-        <!-- bind the disabledButton class with inventory data -->
-        <!-- alternative is to just use button:disabled pseudo-class in css -->
-        <button
-          @click="addToBasket()"
-          class="addBasket"
-          :class="{ disabledButton: !inventory }"
-          :disabled="!inventory"
-        >
-          Add to Basket
-        </button>
-        <button @click="removeFromBasket()" class="removeBasket">
-          Remove from Basket
-        </button>
-        <p class="basket">Basket ({{ basket }})</p>
-      </div>
+      <!-- each item is a component -->
+      <!-- bind the custom basket/premiumUser attribute to data, pass in "basket" and "premiumUser" as the expression -->
+      <!-- the expression evaluates to the data in app (the parent) -->
+      <item
+        :basket="basket"
+        :premiumuser="premiumuser"
+        @add-to-basket="addToBasket"
+        @remove-from-basket="removeFromBasket"
+      ></item>
+      <p class="basket">Basket ({{ basket }})</p>
       <footer>
         <p>Made with Vue.js</p>
       </footer>
