@@ -2,6 +2,14 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+.basketContainer {
+  background-color: lightgray;
+  height: 50px;
+  padding: 5px;
+  position: sticky;
+  top: 0;
+}
+
 header {
   text-transform: uppercase;
 }
@@ -73,13 +81,6 @@ button {
   flex-direction: column;
   margin: 30px 0;
   width: 500px;
-}
-
-.basket {
-  width: 10rem;
-  border: solid black 1px;
-  text-align: center;
-  border-radius: 5px;
 }
 
 footer {

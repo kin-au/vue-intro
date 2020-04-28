@@ -109,15 +109,15 @@ Vue.component("item", {
     Remove from Basket
   </button>
 </div>
-<!-- below is rendering the item-review component from within item component -->
-<item-review @submit-review="submitReview"></item-review>
 <div>
-  <p>Comments from customers:</p>
+  <p>Reviews from customers:</p>
   <ul>
-    <p v-if="review.length === 0">No review yet - be the first to comment!</p>
+    <p v-if="review.length === 0">No reviews yet - be the first to comment!</p>
     <li v-else v-for="userReview in review">{{ userReview.name }} said: "{{ userReview.comment }}"</li>
   </ul>
 </div>
+<!-- below is rendering the item-review component from within item component -->
+<item-review @submit-review="submitReview"></item-review>
 </div>`,
   // if we had put all the data into the instance object, it would be an object
   // however in a component, data is not an object, but a function that returns an object

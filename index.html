@@ -13,6 +13,9 @@
   <body>
     <!-- app div is linked to the instance -->
     <div id="app">
+      <div class="basketContainer">
+        <p class="basket">Basket ({{ basket.length }})</p>
+      </div>
       <header>
         <h1>Air Shop</h1>
       </header>
@@ -25,7 +28,6 @@
         @add-to-basket="addToBasket"
         @remove-from-basket="removeFromBasket"
       ></item>
-      <p class="basket">Basket ({{ basket.length }})</p>
       <footer>
         <p>Made with Vue.js</p>
       </footer>
