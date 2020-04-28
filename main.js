@@ -5,7 +5,7 @@ Vue.component("item", {
   // can also pass in as an array of props without specifying the above
   props: {
     basket: {
-      type: Number,
+      type: Array,
       required: true,
     },
     premiumuser: {
@@ -144,6 +144,7 @@ Vue.component("item", {
         },
       ],
       link: "https://www.google.com/search?q=welsh+hills",
+      selectedVariant: null,
       inventory: 8,
       price: 27.99,
       onSale: true,
@@ -163,16 +164,24 @@ Vue.component("item", {
         variant.isVariantSelected = false;
       });
       this.variants[variantId].isVariantSelected = true;
+      this.selectedVariant = this.variants[variantId].id;
     },
     addToBasket() {
-      this.inventory -= 1;
-      this.$emit("add-to-basket");
+      if (this.selectedVariant !== null) {
+        this.inventory -= 1;
+        this.$emit("add-to-basket", this.selectedVariant);
+      } else {
+        alert("Please select a container for your air!");
+      }
     },
     removeFromBasket() {
-      console.log(this.basket);
-      if (this.basket) {
+      if (this.selectedVariant === null) {
+        alert("Please select a container option to remove!");
+      } else if (this.basket.indexOf(this.selectedVariant) === -1) {
+        alert("Hmm, you don't have this item in your basket");
+      } else {
+        this.$emit("remove-from-basket", this.selectedVariant);
         this.inventory += 1;
-        this.$emit("remove-from-basket");
       }
     },
   },
@@ -198,14 +207,14 @@ let app = new Vue({
   el: "#app",
   data: {
     premiumuser: true,
-    basket: 0,
+    basket: [],
   },
   methods: {
-    addToBasket() {
-      this.basket += 1;
+    addToBasket(id) {
+      this.basket.push(id);
     },
-    removeFromBasket() {
-      this.basket -= 1;
+    removeFromBasket(id) {
+      this.basket.splice(this.basket.indexOf(id), 1);
     },
   },
 });
