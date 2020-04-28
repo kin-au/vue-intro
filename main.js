@@ -109,6 +109,15 @@ Vue.component("item", {
     Remove from Basket
   </button>
 </div>
+<!-- below is rendering the item-review component from within item component -->
+<item-review @submit-review="submitReview"></item-review>
+<div>
+  <p>Comments from customers:</p>
+  <ul>
+    <p v-if="review.length === 0">No review yet - be the first to comment!</p>
+    <li v-else v-for="userReview in review">{{ userReview.name }} said: "{{ userReview.comment }}"</li>
+  </ul>
+</div>
 </div>`,
   // if we had put all the data into the instance object, it would be an object
   // however in a component, data is not an object, but a function that returns an object
@@ -148,6 +157,7 @@ Vue.component("item", {
       inventory: 8,
       price: 27.99,
       onSale: true,
+      review: [],
     };
   },
   // any functions are stored inside the methods property
@@ -184,6 +194,9 @@ Vue.component("item", {
         this.inventory += 1;
       }
     },
+    submitReview(userReview) {
+      this.review.push(userReview);
+    },
   },
   // any computing functions are stored in computed property
   // unlike data, the object does not need to be returned in a function
@@ -197,6 +210,39 @@ Vue.component("item", {
       } else {
         return "£4.99";
       }
+    },
+  },
+});
+
+Vue.component("item-review", {
+  template: `
+  <!-- the .prevent is an event modifier on the submit that prevents default behaviour -->
+  <div>
+    <form class="review-form" v-on:submit.prevent="submitReview" class="reviewForm">
+      <label for="name">Your name:</label>
+      <!-- v-model is a 2-way bind (data to html, and vice versa) -->
+      <input id="name" v-model="name" required></input>
+      <label for="comments">Let us know your comments on this item:</label>
+      <textarea id="comments" v-model="comment" required></textarea>
+      <button type="submit" class="submitButton">Submit</button>
+    </form>
+  </div>
+  `,
+  data() {
+    return {
+      name: null,
+      comment: null,
+    };
+  },
+  methods: {
+    submitReview() {
+      let userReview = {
+        name: this.name,
+        comment: this.comment,
+      };
+      this.$emit("submit-review", userReview);
+      this.name = null;
+      this.comment = null;
     },
   },
 });
