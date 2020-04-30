@@ -2,6 +2,8 @@
 
 #### A webpage showcasing one of Air Shop's products
 
+See the page at: https://kin-au.github.io/vue-intro
+
 ##### Written in Vue.js, including:
 
 - instances and components
